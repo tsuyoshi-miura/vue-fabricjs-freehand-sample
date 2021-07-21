@@ -29,9 +29,6 @@
               <v-btn @click="onChangeDrawingWidth(5)">medium</v-btn>
               <v-btn @click="onChangeDrawingWidth(10)">large</v-btn>
             </v-col>
-            <v-col cols="12">
-              <v-btn @click="onChangeMode()">mode change</v-btn>
-            </v-col>
           </v-row>
         </v-col>
       </v-row>
@@ -66,18 +63,6 @@ export default {
     this.canvas.freeDrawingBrush.shadowBlur = 0;
     this.canvas.hoverCursor = "move";
 
-    // 背景画像指定
-    fabric.Image.fromURL(
-      this.imageUrl,
-      (image) => {
-        this.canvas.setBackgroundImage(image);
-        this.canvas.backgroundImage.scaleToWidth("600");
-        this.canvas.backgroundImage.scaleToHeight("600");
-        this.canvas.renderAll();
-      },
-      { crossOrigin: "Anonymous" }
-    );
-
     // 新しいオブジェクトが追加されたかを監視
     this.canvas.on("object:added", () => {
       if (!this.isRedoing) {
@@ -108,9 +93,6 @@ export default {
     },
     onChangeDrawingWidth(width) {
       this.canvas.freeDrawingBrush.width = width || 5;
-    },
-    onChangeMode() {
-      this.canvas.isDrawingMode = this.canvas.isDrawingMode ? false : true;
     },
   },
 };
